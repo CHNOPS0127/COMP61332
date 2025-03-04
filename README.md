@@ -83,7 +83,7 @@ python xgb_model.py
 
 ### **BERT Transformer Model**
 ```bash
-train_bert.py
+bert.py
 ```
 
 ## **Evaluation**
