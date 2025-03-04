@@ -68,7 +68,7 @@ We extract entity pairs and linguistic features using **spaCy** NLP processing. 
 
 **Run data preprocessing:**
 ```bash
-preprocess.py
+python preprocess.py
 ```
 
 ## **Model Training**
@@ -76,9 +76,9 @@ Train each model using the respective scripts:
 
 ### **Traditional ML Models**
 ```bash
-train_svm.py
-train_rf.py
-train_xgb.py
+python svm_model.py
+python rf_model.py
+python xgb_model.py
 ```
 
 ### **BERT Transformer Model**
@@ -117,14 +117,6 @@ nlp_model = pipeline("text-classification", model="bert_model")
 result = nlp_model("The enzyme catalyzes the reaction.")
 print(result)
 ```
-
-## **Results**
-| Model     | Precision | Recall | F1-Score |
-|-----------|-----------|-----------|-----------|
-| SVM       | 0.78      | 0.75      | 0.76      |
-| Random Forest | 0.82 | 0.79 | 0.80 |
-| XGBoost   | 0.84      | 0.81      | 0.82      |
-| BERT      | **0.91**  | **0.88**  | **0.89**  |
 
 ## **License**
 This project is licensed under the MIT License. 
