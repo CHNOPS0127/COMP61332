@@ -18,13 +18,17 @@ Relation extraction is a fundamental task in NLP that involves identifying and c
 ## Getting Started
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/yourproject.git
+   git clone https://github.com/CHNOPS0127/COMP61332.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd yourproject
+   cd COMP61332
    ```
 3. Install dependencies as mentioned above.
+
+## Dataset Preparation
+* Data should be formatted in JSON format with entity relations.
+* Sample dataset is provided in `dataset.json`.
 
 ## **Methods**
 We implement **two different approaches** for relation extraction:
@@ -35,39 +39,25 @@ We train and evaluate **three supervised models**:
 - **Random Forest (RF)**
 - **XGBoost (XGB)**
 
-These models use hand-crafted linguistic features such as:
-- Named Entity Recognition (NER) tags
-- Part-of-Speech (POS) tags
-- Dependency parsing relations
-- TF-IDF vectorized text features
-
-📌 **Scripts:**  
-- [Train SVM](train_svm.py)  
-- [Train Random Forest](train_rf.py)  
-- [Train XGBoost](train_xgb.py)  
+### Hand-Crafted Linguistic Features
+These models leverage **hand-crafted linguistic features** to enhance relation extraction performance. The extracted features include:
+- **Named Entity Recognition (NER) Tags**  
+  - Encoded entity types (`entity1_type_encoded`, `entity2_type_encoded`) help distinguish the type of entities (e.g., "Gene", "Protein", "Chemical").  
+- **Part-of-Speech (POS) Tags**  
+  - Features `entity1_POS_encoded` and `entity2_POS_encoded` represent the **grammatical category** of each entity (e.g., noun, verb, adjective).  
+- **Dependency Parsing Relations**  
+  - `dependency_path_encoded` captures **syntactic relationships** between entities in a sentence.  
+- **Sentence-Level Structural Features**  
+  - `sentence_length`: The number of words in the sentence, providing insight into the complexity of the context.  
+  - `word_distance`: The number of words between two entities, useful for assessing how closely related they are.  
+  - `span_similarity`: Measures how semantically similar the two entity spans are based on word embeddings.
+- **TF-IDF Vectorized Text Features**  
+  - Features `tfidf_0` to `tfidf_100` represent **word importance scores** based on Term Frequency-Inverse Document Frequency (TF-IDF).  
 
 ### **2. Deep Learning-Based Approach (BERT Transformer Model)**
 We implement a **BERT-based relation extraction model**, leveraging a transformer encoder to learn contextualized representations of entity pairs.
 
-- **Pre-trained BERT embeddings** are fine-tuned on our dataset.
-- We use **Hugging Face's `transformers` library** for model implementation.
-- The BERT model predicts relation types given an input sentence.
-
-📌 **Script:**  
-- [Train BERT Model](train_bert.py)  
-
-## **Installation**
-Ensure you have Python 3.8+ installed. Install the required dependencies using:
-
-```bash
-pip install -r requirements.txt
-```
-
-Additionally, install the **spaCy model** and **Hugging Face Transformers**:
-```bash
-python -m spacy download en_core_web_md
-pip install transformers
-```
+- xxx
 
 ## **Data Preprocessing**
 We extract entity pairs and linguistic features using **spaCy** NLP processing. The `preprocess.py` script performs:
@@ -76,9 +66,9 @@ We extract entity pairs and linguistic features using **spaCy** NLP processing. 
 - Dependency parsing
 - Feature extraction for machine learning models
 
-📌 **Run data preprocessing:**
+**Run data preprocessing:**
 ```bash
-python preprocess.py
+preprocess.py
 ```
 
 ## **Model Training**
@@ -86,14 +76,14 @@ Train each model using the respective scripts:
 
 ### **Traditional ML Models**
 ```bash
-python train_svm.py
-python train_rf.py
-python train_xgb.py
+train_svm.py
+train_rf.py
+train_xgb.py
 ```
 
 ### **BERT Transformer Model**
 ```bash
-python train_bert.py
+train_bert.py
 ```
 
 ## **Evaluation**
@@ -101,12 +91,12 @@ Evaluate the models using precision, recall, F1-score, and confusion matrices.
 
 ### **Traditional ML Models Evaluation**
 ```bash
-python evaluate_ml_models.py
+evaluate_ml_models.py
 ```
 
 ### **BERT Model Evaluation**
 ```bash
-python evaluate_bert.py
+evaluate_bert.py
 ```
 
 ## **Usage**
@@ -137,9 +127,4 @@ print(result)
 | BERT      | **0.91**  | **0.88**  | **0.89**  |
 
 ## **License**
-This project is licensed under the MIT License. See `LICENSE` for details.
-
----
-
-### **Contact**
-For any queries, please reach out to the project contributors.
+This project is licensed under the MIT License. 
