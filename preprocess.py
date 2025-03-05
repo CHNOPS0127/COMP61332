@@ -46,11 +46,18 @@ def feature_extraction(data):
             entity2_POS = entity2_root.pos_ if entity2_root else "UNKNOWN"
 
             structured_data.append({
-                "sentence": text, "entity1": entity1["text"], "entity1_type": entity1_type,
-                "entity2": entity2["text"], "entity2_type": entity2_type,
-                "text_between_entities": between_text, "relation": relation["type"],
-                "sentence_length": len(text.split()), "word_distance": len(between_text.split()),
-                "dependency_path": dependency_path, "entity1_POS": entity1_POS, "entity2_POS": entity2_POS,
+                "sentence": text, 
+                "entity1": entity1["text"], 
+                "entity1_type": entity1_type,
+                "entity2": entity2["text"], 
+                "entity2_type": entity2_type,
+                "text_between_entities": between_text, 
+                "relation": relation["type"],
+                "sentence_length": len(text.split()), 
+                "word_distance": len(between_text.split()),
+                "dependency_path": dependency_path, 
+                "entity1_POS": entity1_POS, 
+                "entity2_POS": entity2_POS,
                 "span_similarity": span_similarity
             })
     
