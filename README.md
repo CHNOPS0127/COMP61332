@@ -8,12 +8,14 @@ This repository contains code for extracting relationships between entities in s
 Relation extraction is a fundamental task in NLP that involves identifying and classifying semantic relationships between entities in text. This project applies **traditional machine learning models** and **deep learning transformer models** to extract relations from scientific literature.
 
 ## Requirements
-* Python 3.7+
-* Required Libraries:
-  ```bash
-  pip install pandas spacy numpy scikit-learn xgboost matplotlib seaborn
-  python -m spacy download en_core_web_md
-  ```
+* Python 3.10+
+* Required Packages:
+  - pandas
+  - numpy
+  - spacy
+  - sklearn
+  - torch
+  - transformers (HuggingFace)
 
 ## Getting Started
 1. Clone the repository:
@@ -88,68 +90,27 @@ These models leverage **hand-crafted linguistic features** to enhance relation e
   - Features `tfidf_0` to `tfidf_100` represent **word importance scores** based on Term Frequency-Inverse Document Frequency (TF-IDF).  
 
 ### **2. Deep Learning-Based Approach (BERT Transformer Model)**
-We implement a **BERT-based relation extraction model**, leveraging a transformer encoder to learn contextualized representations of entity pairs.
-
-- xxx
+The code implements a pretrained transformer approach (using BERT-base) for relation extraction. It fine-tunes BERT with an enhanced classifier head, incorporating techniques such as focal loss, class weighting, and stratified sampling to tackle class imbalance. Hyperparameters like a low learning rate, dropout, weight decay, and gradient accumulation are carefully tuned to ensure stable training and effective generalization. Evaluation metrics such as macro F1, precision, and recall are tracked during training to monitor performance and trigger early stopping.
 
 ## **Data Preprocessing**
-We extract entity pairs and linguistic features using **spaCy** NLP processing. The `preprocess.py` script performs:
-- Tokenization
-- Lemmatization
-- Dependency parsing
-- Feature extraction for machine learning models
-
-**Run data preprocessing:**
-```bash
-python preprocess.py
-```
+First, We extract sentences with entity tags from the .json file. Then we tokenize the sentences using BertTokenizer.
 
 ## **Model Training**
-Train each model using the respective scripts:
 
 ### **Traditional ML Models**
-```bash
-python svm_model.py
-python rf_model.py
-python xgb_model.py
-```
+_____ ""
 
 ### **BERT Transformer Model**
-```bash
-bert.py
-```
-
-## **Evaluation**
-Evaluate the models using precision, recall, F1-score, and confusion matrices.
+dl_bert_training.ipynb
 
 ### **Traditional ML Models Evaluation**
-```bash
-evaluate_ml_models.py
-```
+Evaluate the models using precision, recall, F1-score, and confusion matrices.
 
 ### **BERT Model Evaluation**
-```bash
-evaluate_bert.py
-```
+For evaluating the training of the model, we created a custom compute function which calculates various F1 scores(macro, weighted) and F1 scores for each relation type. This was chosen as an option since the relation classes are highly imbalanced and accuracy did not demonstrate improvements in learning.
 
 ## **Usage**
-Once trained, models can be used to make predictions.
-
-Example for **SVM**:
-```python
-import joblib
-svm_model = joblib.load("svm_model.pkl")
-prediction = svm_model.predict([input_features])
-print("Predicted Relation:", prediction)
-```
-
-Example for **BERT**:
-```python
-from transformers import pipeline
-nlp_model = pipeline("text-classification", model="bert_model")
-result = nlp_model("The enzyme catalyzes the reaction.")
-print(result)
-```
+Once trained, models can be used to make predictions as shown in the notebooks.
 
 ## **License**
 This project is licensed under the MIT License. 
