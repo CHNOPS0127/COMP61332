@@ -28,6 +28,39 @@ Relation extraction is a fundamental task in NLP that involves identifying and c
 
 ## Dataset Preparation
 * Data should be formatted in JSON format with entity relations.
+* Example Format
+```json
+[
+  {
+    "filename": "E85-1004",
+    "text": "This paper reports a completed stage of ongoing research at the University of York...",
+    "entities": [
+      {
+        "entity_id": "T1",
+        "label": "Method",
+        "start": 112,
+        "end": 131,
+        "text": "analytical inverses"
+      },
+      {
+        "entity_id": "T2",
+        "label": "OtherScientificTerm",
+        "start": 138,
+        "end": 164,
+        "text": "compositional syntax rules"
+      }
+    ],
+    "relations": [
+      {
+        "relation_id": "R1",
+        "type": "USED-FOR",
+        "arg1": "T1",
+        "arg2": "T2"
+      }
+    ]
+  }
+]
+```
 * Sample dataset is provided in `dataset.json`.
 
 ## **Methods**
@@ -42,7 +75,7 @@ We train and evaluate **three supervised models**:
 ### Hand-Crafted Linguistic Features
 These models leverage **hand-crafted linguistic features** to enhance relation extraction performance. The extracted features include:
 - **Named Entity Recognition (NER) Tags**  
-  - Encoded entity types (`entity1_type_encoded`, `entity2_type_encoded`) help distinguish the type of entities (e.g., "Gene", "Protein", "Chemical").  
+  - Encoded entity types (`entity1_type_encoded`, `entity2_type_encoded`) help distinguish the type of entities (e.g., "Method", "OtherScientificTerm", "Generic").  
 - **Part-of-Speech (POS) Tags**  
   - Features `entity1_POS_encoded` and `entity2_POS_encoded` represent the **grammatical category** of each entity (e.g., noun, verb, adjective).  
 - **Dependency Parsing Relations**  
